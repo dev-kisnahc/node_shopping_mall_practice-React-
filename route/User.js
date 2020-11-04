@@ -63,7 +63,7 @@ router.post('/register', (req, res) => {
 //로그인 API
 
 router.post('/Login', (req, res) => {
-    //이메일 유무체크 => password 매칭 => 유저정보 리턴
+    //이메일 유무체크 => password match => 유저정보 리턴
     userModel
         .findOne({email: req.body.useremail})
         .then(user => {
@@ -73,13 +73,23 @@ router.post('/Login', (req, res) => {
                     msg: "가입된 이메일이 아닙니다."
                 })
             }
-            //가입된 이메일이 맞으면
+            //가입된 이메일이 맞으면 password matching
             else {
-                res.json({
-                    msg: "succssful Login",
-                    userInfo: user
+                bcrypt.compare(req.body.userpassword, user.password, (err, isMatch) => {
+                    if(err || isMatch === false) {
+                        return res.json({
+                            msg: "password incorect"
+                        })
+                    }
+                    else {
+                    res.json({
+                        msg: "succssful Login",
+                        userInfo: user
+                    })
+                }
                 })
             }
+                
         })
         .catch(err => {
             res.json({
