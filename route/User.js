@@ -1,6 +1,7 @@
 const express = require("express")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const checkAuth = require("../middleware/check-auth")
 
 const router = express.Router()
 
@@ -35,7 +36,7 @@ router.post('/register', (req, res) => {
                             name: req.body.username,
                             lastname: req.body.userlastname,
                             email: req.body.useremail,
-                            password: hash,
+                            password: hash
                         })
                         newUser
                             .save()
@@ -87,9 +88,11 @@ router.post('/Login', (req, res) => {
                     const token = jwt.sign(
                         {id: user._id, email: user.email},
                         "secret",
-                        {expiresIn: "Id"}
+                        {expiresIn: "1d"}
                     )
-                    res.json({token})
+                    res.json({
+                        msg: "success login",
+                        token})
                 }
                 })
             }
@@ -102,4 +105,5 @@ router.post('/Login', (req, res) => {
         })
 })
 
-module.exports = router
+
+module.exports = router 

@@ -1,12 +1,10 @@
 const express = require("express")
-const { translateAliases } = require("../models/product")
-const checkauth = require("../middleware/check-auth")
-
 const router = express.Router()
-
 const productModel = require('../models/product')
+const checkAuth = require("../middleware/check-auth")
 
-router.post('/',checkauth, (req, res) => {
+
+router.post(('/'), checkAuth, (req, res) => {
 
     const newProduct = new productModel({
         name: req.body.productname,
@@ -34,7 +32,7 @@ router.post('/',checkauth, (req, res) => {
         })
 })
 
-router.get('/',checkauth, (req, res) => {
+router.get('/', checkAuth, (req, res) => {
     
     productModel
         .find()
@@ -61,7 +59,7 @@ router.get('/',checkauth, (req, res) => {
         })
 })
 
-router.get('/:productID',checkauth, (req, res) => {
+router.get('/:productID', checkAuth, (req, res) => {
 
     const id = req.params.productID
 
@@ -91,7 +89,7 @@ router.get('/:productID',checkauth, (req, res) => {
         })
 })
 
-router.patch('/:productID',checkauth, (req, res) => {
+router.patch('/:productID', checkAuth, (req, res) => {
     const id = req.params.productID
 
     //productModel에서 id찾고 업데이트내용을 실행
@@ -121,7 +119,7 @@ router.patch('/:productID',checkauth, (req, res) => {
         })
 })
 
-router.delete('/',checkauth, (req, res) => {
+router.delete('/', checkAuth, (req, res) => {
     
     productModel
         .deleteMany()
@@ -141,7 +139,7 @@ router.delete('/',checkauth, (req, res) => {
         })
 })
 
-router.delete('/:productID',checkauth, (req, res) => {
+router.delete('/:productID', checkAuth, (req, res) => {
     const id = req.params.productID
 
     productModel
