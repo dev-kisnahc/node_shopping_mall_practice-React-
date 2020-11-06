@@ -27,7 +27,7 @@ mongoose.set('useCreateIndex', true)
     .then(() => console.log("DB connected ... "))
     .catch(err => console.log(err))
 
-app.get('/api/hello', (req, res) => 
+app.get('/hello', (req, res) => 
     res.send ("안녕하세요"))
 
 //routing

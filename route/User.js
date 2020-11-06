@@ -64,7 +64,7 @@ router.post('/register', (req, res) => {
 
 //로그인 API
 
-router.post('/Login', (req, res) => {
+router.post('/login', (req, res) => {
     //이메일 유무체크 => password match => 유저정보 리턴
     userModel
         .findOne({email: req.body.useremail})
