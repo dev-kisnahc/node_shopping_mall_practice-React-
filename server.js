@@ -27,7 +27,7 @@ mongoose.set('useCreateIndex', true)
     .then(() => console.log("DB connected ... "))
     .catch(err => console.log(err))
 
-app.use('/api/hello', (req, res) => 
+app.get('/api/hello', (req, res) => 
     res.send ("안녕하세요"))
 
 //routing
@@ -38,6 +38,12 @@ const productRoute = require("./route/product")
 app.use('/User', userRoute)
 app.use('/product', productRoute)
 
+
+app.use((req, res) => {
+    res.json({
+        msg: "hello"
+    })
+})
 
 
 const PORT = 1234
